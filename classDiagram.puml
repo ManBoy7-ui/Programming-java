@@ -1,0 +1,94 @@
+@startuml
+
+' Define classes
+class Organization {
+    - Long id
+    - String name
+    - Coordinates coordinates
+    - ZonedDateTime creationDate
+    - Integer annualTurnover
+    - OrganizationType type
+    - Address postalAddress
+    + Organization(Long, String, Coordinates, Integer, OrganizationType, Address)
+    + Long getId()
+    + String getName()
+    + Coordinates getCoordinates()
+    + ZonedDateTime getCreationDate()
+    + Integer getAnnualTurnover()
+    + OrganizationType getType()
+    + Address getPostalAddress()
+    + int compareTo(Organization)
+    + String toString()
+}
+
+class Coordinates {
+    - float x
+    - Integer y
+    + Coordinates(float, Integer)
+    + float getX()
+    + Integer getY()
+}
+
+class Address {
+    - String zipCode
+    + Address(String)
+    + String getZipCode()
+}
+
+enum OrganizationType {
+    COMMERCIAL
+    PUBLIC
+    GOVERNMENT
+    TRUST
+    PRIVATE_LIMITED_COMPANY
+}
+
+class OrganizationManager {
+    - TreeSet<Organization> organizations
+    - Deque<String> commandHistory
+    + OrganizationManager(TreeSet<Organization>)
+    + void startInteractiveMode()
+    - void addToHistory(String)
+    - void displayHelp()
+    - void displayInfo()
+    - void showOrganizations()
+    - void addOrganization(Scanner)
+    - void updateOrganization(Scanner, Long)
+    - void removeById(Long)
+    - void clearCollection()
+    - void saveToFile(String)
+    - void executeScript(String)
+    - void addIfMin(Scanner)
+    - void removeGreater(Scanner)
+    - void displayHistory()
+    - void minByAnnualTurnover()
+    - void countByType(String)
+    - void filterStartsWithName(String)
+}
+
+class OrganizationXMLParser {
+    - File xmlFile
+    + OrganizationXMLParser(String)
+    + TreeSet<Organization> loadOrganizations()
+    - Organization parseOrganization(Element)
+}
+
+class Main {
+    + static void main(String[])
+}
+
+' Define relationships
+Organization "1" *-- "1" Coordinates
+Organization "1" *-- "1" Address
+Organization "1" *-- "0..1" OrganizationType
+
+OrganizationManager "1" *-- "0..*" Organization
+OrganizationManager "1" *-- "1" Scanner
+
+OrganizationXMLParser "1" *-- "0..*" Organization
+OrganizationXMLParser "1" *-- "1" File
+
+Main "1" *-- "1" OrganizationManager
+Main "1" *-- "1" OrganizationXMLParser
+
+@enduml
