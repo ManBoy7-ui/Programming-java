@@ -1,24 +1,33 @@
 package com.organizationmanager;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 public class Organization implements Comparable<Organization> {
-    private Long id; // Automatically generated, unique, > 0
-    private String name; // Cannot be null or empty
-    private Coordinates coordinates; // Cannot be null
-    private ZonedDateTime creationDate; // Automatically generated
-    private Integer annualTurnover; // Cannot be null, > 0
-    private OrganizationType type; // Can be null
-    private Address postalAddress; // Cannot be null
+    private final Long id;
+    private final String name;
+    private final Coordinates coordinates;
+    private final ZonedDateTime creationDate;
+    private final Integer annualTurnover;
+    private final OrganizationType type;
+    private final Address postalAddress;
 
-    public Organization(Long id, String name, Coordinates coordinates, Integer annualTurnover, OrganizationType type, Address postalAddress) {
-        this.id = id;
-        this.name = name;
-        this.coordinates = coordinates;
-        this.creationDate = ZonedDateTime.now(); // Automatically generated
-        this.annualTurnover = annualTurnover;
-        this.type = type;
-        this.postalAddress = postalAddress;
+    public Organization(Long id, String name, Coordinates coordinates,
+                        Integer annualTurnover, OrganizationType type,
+                        Address postalAddress) {
+        this.id = Objects.requireNonNull(id, "ID cannot be null");
+        if (id <= 0) throw new IllegalArgumentException("ID must be positive");
+
+        this.name = Objects.requireNonNull(name, "Name cannot be null");
+        if (name.isEmpty()) throw new IllegalArgumentException("Name cannot be empty");
+
+        this.coordinates = Objects.requireNonNull(coordinates, "Coordinates cannot be null");
+        this.annualTurnover = Objects.requireNonNull(annualTurnover, "Annual turnover cannot be null");
+        if (annualTurnover <= 0) throw new IllegalArgumentException("Annual turnover must be positive");
+
+        this.type = type; // Can be null
+        this.postalAddress = Objects.requireNonNull(postalAddress, "Postal address cannot be null");
+        this.creationDate = ZonedDateTime.now();
     }
 
     // Getters
@@ -32,11 +41,29 @@ public class Organization implements Comparable<Organization> {
 
     @Override
     public int compareTo(Organization o) {
-        return this.id.compareTo(o.id); // Default sorting by id
+        return this.id.compareTo(o.id);
     }
 
     @Override
     public String toString() {
-        return String.format("Organization[id=%d, name=%s, creationDate=%s]", id, name, creationDate);
+        return String.format(
+                "Organization[id=%d, name='%s', coordinates=%s, created=%s, " +
+                        "turnover=%d, type=%s, address=%s]",
+                id, name, coordinates, creationDate,
+                annualTurnover, type, postalAddress
+        );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Organization)) return false;
+        Organization that = (Organization) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
