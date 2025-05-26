@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<organizations>
+  <organization>
+    <id>1</id>
+    <name>TechCorp</name>
+    <coordinates>
+      <x>50.0</x>
+      <y>100</y>
+    </coordinates>
+    <creationDate>2025-03-30T05:42:26.2143242+03:00[Europe/Moscow]</creationDate>
+    <annualTurnover>1000000</annualTurnover>
+    <type>COMMERCIAL</type>
+    <postalAddress>
+      <zipCode>12345</zipCode>
+    </postalAddress>
+  </organization>
+  <organization>
+    <id>4</id>
+    <name>Spine7</name>
+    <coordinates>
+      <x>40.0</x>
+      <y>200</y>
+    </coordinates>
+    <creationDate>2025-03-30T05:42:26.2174077+03:00[Europe/Moscow]</creationDate>
+    <annualTurnover>20000</annualTurnover>
+    <type>PUBLIC</type>
+    <postalAddress>
+      <zipCode>4060</zipCode>
+    </postalAddress>
+  </organization>
+  <organization>
+    <id>7</id>
+    <name>SPINE</name>
+    <coordinates>
+      <x>54.0</x>
+      <y>200</y>
+    </coordinates>
+    <creationDate>2025-03-30T05:47:32.8598739+03:00[Europe/Moscow]</creationDate>
+    <annualTurnover>345</annualTurnover>
+    <type>PUBLIC</type>
+    <postalAddress>
+      <zipCode>3450</zipCode>
+    </postalAddress>
+  </organization>
+</organizations>
